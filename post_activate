@@ -1,0 +1,14 @@
+#!/bin/bash
+# This hook is sourced after every virtualenv is activated.
+export PROJECT_PARENT_DIRECTORY=`pwd`
+PROJECT_NAME=$(basename ${VIRTUAL_ENV})
+echo
+echo "> Activating [ ${PROJECT_NAME} ]"
+PROJECT_PATH=${PROJECT_HOME}/${PROJECT_NAME}
+if [[ ! -d ${PROJECT_PATH} ]]; then
+mkdir ${PROJECT_PATH}
+echo "> Creating directory [ ${PROJECT_PATH} ]"
+fi
+cd ${PROJECT_PATH}
+echo "> Working Directory [ ${PWD} ]"
+echo
