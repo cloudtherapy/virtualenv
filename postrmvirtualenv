@@ -1,0 +1,30 @@
+#!/bin/bash
+# This hook is run after a virtualenv is deleted.
+# argument: full path to environment directory
+# Uncomment to enable debug (no action)
+# DEBUG=echo
+for PROJECT_NAME in ${BASH_ARGV}; do
+echo
+PROJECT_PATH=${PROJECT_HOME}/${PROJECT_NAME}
+if [[ -d ${PROJECT_PATH} ]]; then
+    echo "> Found project home directory [ ${PROJECT_PATH} ]"
+    PROJECT_BACKUP=`[ "$(ls -A ${PROJECT_PATH})" ] && echo true || echo false`
+    if ${PROJECT_BACKUP}; then
+        ARCHIVE_PATH="${PROJECT_HOME}/.backups"
+        if [[ ! -d "${ARCHIVE_PATH}" ]]; then
+            echo "> Creating backup directory: ${ARCHIVE_PATH}"
+            mkdir -p ${ARCHIVE_PATH}
+        fi
+        ARCHIVE_FILE=${ARCHIVE_PATH}/$(date +%Y%m%d_%H%M%S)_${PROJECT_NAME}.tgz
+        echo "> Archiving project home directory before removal: $ARCHIVE_FILE"
+        $DEBUG tar -czf ${ARCHIVE_FILE} -C ${PROJECT_PATH} .
+    else
+        echo "> Skipping project home directory archive"
+    fi
+    echo "> Removing project home directory"
+    $DEBUG rm -Rf ${PROJECT_PATH}
+else
+    echo "WARNING: Project home directory [ ${PROJECT_PATH} ] not found"
+fi
+echo
+done
