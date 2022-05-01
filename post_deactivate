@@ -1,0 +1,7 @@
+#!/bin/bash
+# This hook is sourced after every virtualenv is deactivated.
+echo
+echo "> Deactivating virtual environment"
+cd ${PROJECT_PARENT_DIRECTORY}
+echo "> Working Directory [ ${PWD} ]"
+echo
