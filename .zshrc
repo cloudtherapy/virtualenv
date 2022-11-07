@@ -1,7 +1,8 @@
 ## Virtual Environments
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
 export WORKON_HOME=~/.venv_home
 export PROJECT_HOME=~/Projects
+source /opt/homebrew/bin/virtualenvwrapper.sh
 
 alias venv="workon"
 alias venv.exit="deactivate"
