@@ -10,5 +10,12 @@ if [[ ! -d ${PROJECT_PATH} ]]; then
   echo "> Creating directory [ ${PROJECT_PATH} ]"
 fi
 cd ${PROJECT_PATH}
+if [[ -f .env ]]
+then
+    set -a
+    echo "Loading configuration from .env"
+    source .env
+    set +a
+fi
 echo "> Working Directory [ ${PWD} ]"
 echo
